@@ -9,6 +9,7 @@ void scoreBreakdown(int gameScore)
     int touchdownConversion;
     int fieldGoal;
     
+    /*loops through all possible scores with one type of scoring within the given gameScore, checking each one to see if it matches. Prints possiblity if the sum of them matches*/
     for (safety = gameScore / 2; safety >= 0; safety--)
     {
         for (fieldGoal = gameScore / 3; fieldGoal >= 0; fieldGoal--)
@@ -38,14 +39,25 @@ int main()
     while (isRunning)
     {
         printf("Enter an NFL score (Enter a score < 1 to stop): \n");
-        scanf("%d", &gameScore);
-        if (gameScore > 1)
+        int err;
+        err = scanf("%d", &gameScore);
+        /*checks if the program got a good input/did not error.then finds all possible score breakdowns if input score is > 1, stops program if < 1*/
+        if(err > 0)
         {
-            scoreBreakdown(gameScore);
+            if (gameScore > 1)
+            {
+                scoreBreakdown(gameScore);
+            }
+            else
+            {
+                isRunning = false;
+            }
         }
         else
         {
-            isRunning = false;
+            printf("The input could not be read.\n");
+            /*Clears characters so scan is reset*/
+            while(getchar() != '\n');
         }
     }
     return 0;
